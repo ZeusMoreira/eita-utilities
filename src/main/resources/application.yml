@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: eita-utilities
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eita-utilities
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    change-log: classpath:database/master.xml
+    url: jdbc:postgresql://localhost:5432/eita-utilities?createDatabaseIfNotExist=true
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    enabled: true
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui/index.html
+
+  youtube:
+    api-key: ${YOUTUBE_API_KEY}
+
+server:
+  port: 8080
