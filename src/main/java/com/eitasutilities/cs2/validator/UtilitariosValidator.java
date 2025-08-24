@@ -2,7 +2,6 @@ package com.eitasutilities.cs2.validator;
 
 import com.eitasutilities.cs2.controller.dto.UtilitarioDTO;
 import com.eitasutilities.cs2.entities.enums.Dificuldade;
-import com.eitasutilities.cs2.entities.enums.EnumValidator;
 import com.eitasutilities.cs2.entities.enums.Lado;
 import com.eitasutilities.cs2.entities.enums.Tipo;
 import com.eitasutilities.cs2.exceptions.LinkInvalidoException;
@@ -22,8 +21,9 @@ public class UtilitariosValidator {
         this.youtubeValidator = youtubeValidator;
     }
 
-    public void validar(UtilitarioDTO utilitario) {
+    public void  validar(UtilitarioDTO utilitario) {
         validarEnums(utilitario);
+        validarCampos(utilitario);
         validarLink(utilitario);
     }
 
@@ -31,6 +31,11 @@ public class UtilitariosValidator {
         EnumValidator.validarEnum(utilitario.dificuldade(), Dificuldade.class, "Dificuldade");
         EnumValidator.validarEnum(utilitario.lado(), Lado.class, "Lado");
         EnumValidator.validarEnum(utilitario.tipo(), Tipo.class, "Tipo");
+    }
+
+    public void validarCampos(UtilitarioDTO utilitario) {
+        CampoObrigatorioValidator.validarCampo(utilitario.mapa(), "Mapa");
+        CampoObrigatorioValidator.validarCampo(utilitario.titulo(), "Título");
     }
 
     private void validarYoutube(String link) {

@@ -1,12 +1,13 @@
-package com.eitasutilities.cs2.entities.enums;
+package com.eitasutilities.cs2.validator;
 
+import com.eitasutilities.cs2.exceptions.CampoObrigatorioVazioException;
 import com.eitasutilities.cs2.exceptions.EnumInvalidaException;
 
 public class EnumValidator {
 
     public static <E extends Enum<E>> void validarEnum(String valor, Class<E> enumClass, String nomeCampo) {
         if (valor == null || valor.isBlank()) {
-            throw new EnumInvalidaException(nomeCampo + " não pode ser nulo ou vazio!");
+            throw new CampoObrigatorioVazioException(nomeCampo + " não pode ser nulo ou vazio!");
         }
 
         try {
