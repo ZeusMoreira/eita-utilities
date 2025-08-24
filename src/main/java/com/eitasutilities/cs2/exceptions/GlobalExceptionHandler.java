@@ -11,6 +11,14 @@ import java.util.Objects;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+
+    @ExceptionHandler(CampoObrigatorioVazioException.class)
+    public ResponseEntity<ErroResposta> handleCampoVazio(CampoObrigatorioVazioException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(ErroResposta.respostaPadrao(ex.getMessage()));
+    }
+
     @ExceptionHandler(EnumInvalidaException.class)
     public ResponseEntity<ErroResposta> handleEnumInvalida(EnumInvalidaException ex) {
         return ResponseEntity
