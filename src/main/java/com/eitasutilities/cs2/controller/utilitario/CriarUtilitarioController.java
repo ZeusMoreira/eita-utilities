@@ -1,8 +1,8 @@
-package com.eitasutilities.cs2.controller;
+package com.eitasutilities.cs2.controller.utilitario;
 
 import com.eitasutilities.cs2.controller.dto.UtilitarioDTO;
 import com.eitasutilities.cs2.entities.Utilitario;
-import com.eitasutilities.cs2.services.UtilitarioService;
+import com.eitasutilities.cs2.services.utilitario.CriarUtilitarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/utilitarios")
-public class UtilitariosController {
-    private final UtilitarioService service;
+public class CriarUtilitarioController {
+    private final CriarUtilitarioService service;
 
-    public UtilitariosController(UtilitarioService service) {
+    public CriarUtilitarioController(CriarUtilitarioService service) {
         this.service = service;
     }
 
@@ -22,7 +22,7 @@ public class UtilitariosController {
             summary = "Cria um novo utilitário",
             description = "Recebe os dados do utilitário e cria um novo registro.",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
+                    @ApiResponse(responseCode = "201", description = "Utilitário criado com sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos")
             }
     )

@@ -5,23 +5,42 @@ import com.eitasutilities.cs2.entities.enums.Dificuldade;
 import com.eitasutilities.cs2.entities.enums.Lado;
 import com.eitasutilities.cs2.entities.enums.Tipo;
 import com.eitasutilities.cs2.exceptions.LinkInvalidoException;
-import com.eitasutilities.cs2.repositories.UtilitariosRepository;
+import com.eitasutilities.cs2.exceptions.UuidException;
+import com.eitasutilities.cs2.repositories.UtilitarioRepository;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 @Component
-public class UtilitariosValidator {
-    private final UtilitariosRepository repository;
+public class UtilitarioValidator {
+    private final UtilitarioRepository repository;
     private final YoutubeValidator youtubeValidator;
 
-    public UtilitariosValidator(UtilitariosRepository repository, YoutubeValidator youtubeValidator) {
+    public UtilitarioValidator(UtilitarioRepository repository, YoutubeValidator youtubeValidator) {
         this.repository = repository;
         this.youtubeValidator = youtubeValidator;
     }
 
-    public void  validar(UtilitarioDTO utilitario) {
+    public void validarId(String id) {
+        if(id == null || id.isBlank()) {
+            CampoObrigatorioValidator.validarCampo(id, "Id");
+        } else {
+            validarUuid(id);
+        }
+    }
+
+    private void validarUuid(String id) {
+        try {
+            UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            throw new UuidException("O id informado não é um UUID válido!");
+        }
+    }
+
+
+    public void validarDTO(UtilitarioDTO utilitario) {
         validarEnums(utilitario);
         validarCampos(utilitario);
         validarLink(utilitario);

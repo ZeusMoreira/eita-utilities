@@ -11,6 +11,12 @@ import java.util.Objects;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(UuidException.class)
+    public ResponseEntity<ErroResposta> handleUuid(UuidException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(ErroResposta.respostaPadrao(ex.getMessage()));
+    }
 
     @ExceptionHandler(CampoObrigatorioVazioException.class)
     public ResponseEntity<ErroResposta> handleCampoVazio(CampoObrigatorioVazioException ex) {
