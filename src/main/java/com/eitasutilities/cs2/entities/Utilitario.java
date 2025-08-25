@@ -47,4 +47,7 @@ public class Utilitario {
     @Column(name = "ut_data_criacao")
     private LocalDateTime dataCriacao;
 
+    @Column(name = "ut_video_disponivel", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean videoDisponivel = true;
+
 }

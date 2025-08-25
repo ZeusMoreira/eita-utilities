@@ -5,12 +5,14 @@ import com.eitasutilities.cs2.entities.Utilitario;
 import com.eitasutilities.cs2.services.utilitario.CriarUtilitarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/utilitarios")
+@Tag(name = "Criar Utilitário", description = "Operação relacionada a criação de utilitários")
 public class CriarUtilitarioController {
     private final CriarUtilitarioService service;
 

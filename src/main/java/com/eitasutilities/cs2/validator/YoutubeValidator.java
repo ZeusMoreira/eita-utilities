@@ -1,6 +1,7 @@
 package com.eitasutilities.cs2.validator;
 
 import com.eitasutilities.cs2.exceptions.LinkInvalidoException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -22,17 +23,8 @@ public class YoutubeValidator {
             throw new LinkInvalidoException("Não foi possível extrair um ID de vídeo do link.");
         }
 
-        try {
-            String apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=status&id="
-                    + videoId + "&key=" + youtubeApiKey;
-            String response = restTemplate.getForObject(apiUrl, String.class);
-
-            JsonNode root = objectMapper.readTree(response);
-            if (root.path("items").isEmpty()) {
-                throw new LinkInvalidoException("O vídeo informado não existe ou não está disponível.");
-            }
-        } catch (Exception e) {
-            throw new LinkInvalidoException("Erro ao validar o vídeo do YouTube: " + e.getMessage());
+        if(!ehVideoValido(url)) {
+            throw new LinkInvalidoException("O vídeo informado não existe ou não está disponível.");
         }
     }
 
@@ -45,5 +37,24 @@ public class YoutubeValidator {
         var m2 = p2.matcher(url); if (m2.find()) return m2.group(1);
         var m3 = p3.matcher(url); if (m3.find()) return m3.group(1);
         return null;
+    }
+
+    public boolean ehVideoValido(String url) {
+        String videoId = extrairId(url);
+        if (videoId == null) {
+            return false;
+        }
+
+        try {
+            String apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=status&id="
+                    + videoId + "&key=" + youtubeApiKey;
+            String response = restTemplate.getForObject(apiUrl, String.class);
+
+            JsonNode root = objectMapper.readTree(response);
+
+            return !root.path("items").isEmpty();
+        } catch (Exception e) {
+            throw new LinkInvalidoException("Erro ao validar o vídeo do YouTube: " + e.getMessage());
+        }
     }
 }

@@ -3,11 +3,13 @@ package com.eitasutilities.cs2.controller.utilitario;
 import com.eitasutilities.cs2.services.utilitario.ExcluirUtilitarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/utilitarios")
+@Tag(name = "Excluir Utilitário", description = "Operação relacionada a exclusão de utilitários")
 public class ExcluirUtilitarioController {
     private final ExcluirUtilitarioService service;
 
