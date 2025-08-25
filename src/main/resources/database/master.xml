@@ -12,4 +12,11 @@
                  relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="002-estrutura-inicial" author="zeus.moreira">
+        <sqlFile dbms="postgresql"
+                 encoding="utf8"
+                 path="postgresql/002-carga-utilitario-inicial.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
