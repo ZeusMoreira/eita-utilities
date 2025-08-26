@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/utilitarios")
-<<<<<<< HEAD
 @Tag(name = "Criar Utilitário", description = "Operação relacionada a criação de utilitários")
-=======
->>>>>>> develop
 public class CriarUtilitarioController {
     private final CriarUtilitarioService service;
 
