@@ -6,6 +6,7 @@ import com.eitasutilities.cs2.entities.enums.Tipo;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -46,5 +47,12 @@ public class Utilitario {
     @CreatedDate
     @Column(name = "ut_data_criacao")
     private LocalDateTime dataCriacao;
+
+    @LastModifiedDate
+    @Column(name = "ut_data_alteracao")
+    private LocalDateTime dataAlteracao;
+
+    @Column(name = "ut_video_disponivel", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean videoDisponivel = true;
 
 }

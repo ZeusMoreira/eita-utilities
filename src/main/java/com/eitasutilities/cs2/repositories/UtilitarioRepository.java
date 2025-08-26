@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UtilitariosRepository extends JpaRepository<Utilitario, UUID> {
+public interface UtilitarioRepository extends JpaRepository<Utilitario, UUID> {
     Optional<Utilitario> findByLink(String link);
 
 }
