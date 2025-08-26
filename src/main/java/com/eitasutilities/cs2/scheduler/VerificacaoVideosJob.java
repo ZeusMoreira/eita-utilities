@@ -20,7 +20,7 @@ public class VerificacaoVideosJob {
         this.repository = repository;
     }
 
-    @Scheduled(cron = "0 0 0,12 * * *")
+    @Scheduled(cron = "0 0 */4 * * *")
     public void verificarVideosDisponiveis() {
         List<Utilitario> paraSalvar = new ArrayList<>();
         List<Utilitario> utilitarios = repository.findAll();
