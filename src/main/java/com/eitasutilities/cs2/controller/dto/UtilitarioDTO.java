@@ -4,6 +4,7 @@ import com.eitasutilities.cs2.entities.Utilitario;
 import com.eitasutilities.cs2.entities.enums.Dificuldade;
 import com.eitasutilities.cs2.entities.enums.Lado;
 import com.eitasutilities.cs2.entities.enums.Tipo;
+import com.eitasutilities.cs2.utils.YouTubeUtils;
 
 import java.util.UUID;
 
@@ -25,6 +26,17 @@ public record UtilitarioDTO(
         utilitario.setTitulo(titulo);
         utilitario.setDificuldade(Dificuldade.valueOf(dificuldade.toUpperCase()));
         return utilitario;
+    }
+    public UtilitarioDTO mapearParaUtilitarioDTO(Utilitario utilitario) {
+        return new UtilitarioDTO(
+                utilitario.getId(),
+                utilitario.getLado().toString(),
+                utilitario.getMapa(),
+                utilitario.getLink(),
+                utilitario.getTipo().toString(),
+                utilitario.getTitulo(),
+                utilitario.getDificuldade().toString()
+        );
     }
 
 }

@@ -12,4 +12,8 @@ public record ErroResposta(int status, String mensagem) {
     public static ErroResposta conflito(String mensagem) {
         return new ErroResposta(HttpStatus.CONFLICT.value(), mensagem);
     }
+
+    public static ErroResposta naoEncontrado(String mensagem) {
+        return new ErroResposta(HttpStatus.NOT_FOUND.value(), mensagem);
+    }
 }

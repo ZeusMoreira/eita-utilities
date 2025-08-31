@@ -32,6 +32,13 @@ public class GlobalExceptionHandler {
                 .body(ErroResposta.respostaPadrao(ex.getMessage()));
     }
 
+    @ExceptionHandler(NaoEncontradoException.class)
+    public ResponseEntity<ErroResposta> handleNaoEncontrado(NaoEncontradoException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ErroResposta.naoEncontrado(ex.getMessage()));
+    }
+
     @ExceptionHandler(LinkInvalidoException.class)
     public ResponseEntity<ErroResposta> handleLinkInvalido(LinkInvalidoException ex) {
         boolean ehErroConflito = Objects.equals(ex.getMessage(), "Já existe um vídeo vinculado ao link informado!");
