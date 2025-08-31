@@ -1,6 +1,7 @@
 package com.eitasutilities.cs2.services.utilitario;
 
 import com.eitasutilities.cs2.entities.Utilitario;
+import com.eitasutilities.cs2.exceptions.NaoEncontradoException;
 import com.eitasutilities.cs2.exceptions.UuidException;
 import com.eitasutilities.cs2.repositories.UtilitarioRepository;
 import com.eitasutilities.cs2.validator.UtilitarioValidator;
@@ -32,7 +33,7 @@ public class ExcluirUtilitarioService {
         Optional<Utilitario> utilitario = repository.findById(id);
 
         if(utilitario.isEmpty()) {
-            throw new UuidException("Não existe utilitário relacionado ao Id: " + id);
+            throw new NaoEncontradoException("Não existe utilitário relacionado ao Id: " + id);
         }
 
         return true;

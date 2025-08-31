@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CriarUtilitarioService {
-    private final UtilitarioRepository repository;
 
+    private final UtilitarioRepository repository;
     private final UtilitarioValidator validator;
 
     public CriarUtilitarioService(UtilitarioRepository repository, UtilitarioValidator validator) {
@@ -17,11 +17,8 @@ public class CriarUtilitarioService {
         this.validator = validator;
     }
 
-    public Utilitario salvar(UtilitarioDTO utilitario) {
-        validator.validarDTO(utilitario);
-        Utilitario utilitarioEntidade = utilitario.mapearParaUtilitario();
-        return repository.save(utilitarioEntidade);
+    public Utilitario salvar(UtilitarioDTO dto) {
+        Utilitario utilitario = validator.validarDTO(null, dto);
+        return repository.save(utilitario);
     }
-
-
 }
