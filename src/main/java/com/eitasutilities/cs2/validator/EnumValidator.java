@@ -2,7 +2,9 @@ package com.eitasutilities.cs2.validator;
 
 import com.eitasutilities.cs2.exceptions.CampoObrigatorioVazioException;
 import com.eitasutilities.cs2.exceptions.EnumInvalidaException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EnumValidator {
 
     public static <E extends Enum<E>> void validarEnum(String valor, Class<E> enumClass, String nomeCampo) {
