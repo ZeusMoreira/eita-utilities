@@ -9,26 +9,21 @@ import com.eitasutilities.cs2.exceptions.LinkInvalidoException;
 import com.eitasutilities.cs2.exceptions.UuidException;
 import com.eitasutilities.cs2.repositories.UtilitarioRepository;
 import com.eitasutilities.cs2.utils.YouTubeUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class UtilitarioValidator {
+
     private final UtilitarioRepository repository;
+
     private final YoutubeValidator youtubeValidator;
 
-    public UtilitarioValidator(UtilitarioRepository repository, YoutubeValidator youtubeValidator) {
-        this.repository = repository;
-        this.youtubeValidator = youtubeValidator;
-    }
-
     public void validarId(String id) {
-        if(id == null || id.isBlank()) {
-            CampoObrigatorioValidator.validarCampo(id, "Id");
-        } else {
-            validarUuid(id);
-        }
+        validarUuid(id);
     }
 
     private void validarUuid(String id) {
@@ -41,7 +36,6 @@ public class UtilitarioValidator {
 
     public Utilitario validarDTO(UUID id, UtilitarioDTO utilitarioDTO) {
         validarEnums(utilitarioDTO);
-        validarCampos(utilitarioDTO);
         YouTubeUtils.validarHostYoutube(utilitarioDTO.link());
         Utilitario utilitario = utilitarioDTO.mapearParaUtilitario();
         normalizarLink(utilitario);
@@ -54,11 +48,6 @@ public class UtilitarioValidator {
         EnumValidator.validarEnum(utilitario.dificuldade(), Dificuldade.class, "Dificuldade");
         EnumValidator.validarEnum(utilitario.lado(), Lado.class, "Lado");
         EnumValidator.validarEnum(utilitario.tipo(), Tipo.class, "Tipo");
-    }
-
-    public void validarCampos(UtilitarioDTO utilitario) {
-        CampoObrigatorioValidator.validarCampo(utilitario.mapa(), "Mapa");
-        CampoObrigatorioValidator.validarCampo(utilitario.titulo(), "Título");
     }
 
     private void validarYoutube(String link) {

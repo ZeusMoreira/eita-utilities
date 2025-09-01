@@ -1,42 +1,57 @@
 package com.eitasutilities.cs2.exceptions;
 
+import com.eitasutilities.cs2.controller.dto.ErroCampo;
 import com.eitasutilities.cs2.controller.dto.ErroResposta;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UuidException.class)
-    public ResponseEntity<ErroResposta> handleUuid(UuidException ex) {
-        return ResponseEntity
-                .badRequest()
-                .body(ErroResposta.respostaPadrao(ex.getMessage()));
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta handleUuid(UuidException ex) {
+        return ErroResposta.respostaPadrao(ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErroResposta handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        List<FieldError> fieldErrors = ex.getFieldErrors();
+
+        List<ErroCampo> listaErros = fieldErrors
+                .stream()
+                .map(fe -> new ErroCampo(fe.getField(), fe.getDefaultMessage()))
+                .toList();
+
+        return ErroResposta.entidadeNaoProcessada("Erro de validação!", listaErros);
     }
 
     @ExceptionHandler(CampoObrigatorioVazioException.class)
-    public ResponseEntity<ErroResposta> handleCampoVazio(CampoObrigatorioVazioException ex) {
-        return ResponseEntity
-                .badRequest()
-                .body(ErroResposta.respostaPadrao(ex.getMessage()));
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta handleCampoVazio(CampoObrigatorioVazioException ex) {
+        return ErroResposta.respostaPadrao(ex.getMessage());
     }
 
     @ExceptionHandler(EnumInvalidaException.class)
-    public ResponseEntity<ErroResposta> handleEnumInvalida(EnumInvalidaException ex) {
-        return ResponseEntity
-                .badRequest()
-                .body(ErroResposta.respostaPadrao(ex.getMessage()));
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta handleEnumInvalida(EnumInvalidaException ex) {
+        return ErroResposta.respostaPadrao(ex.getMessage());
     }
 
     @ExceptionHandler(NaoEncontradoException.class)
-    public ResponseEntity<ErroResposta> handleNaoEncontrado(NaoEncontradoException ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(ErroResposta.naoEncontrado(ex.getMessage()));
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroResposta handleNaoEncontrado(NaoEncontradoException ex) {
+        return ErroResposta.naoEncontrado(ex.getMessage());
     }
 
     @ExceptionHandler(LinkInvalidoException.class)

@@ -3,6 +3,7 @@ package com.eitasutilities.cs2.scheduler;
 import com.eitasutilities.cs2.entities.Utilitario;
 import com.eitasutilities.cs2.repositories.UtilitarioRepository;
 import com.eitasutilities.cs2.validator.YoutubeValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class VerificacaoVideosJob {
 
     private final UtilitarioRepository repository;
-    private final YoutubeValidator youtubeValidator;
 
-    public VerificacaoVideosJob(YoutubeValidator youtubeValidator, UtilitarioRepository repository) {
-        this.youtubeValidator = youtubeValidator;
-        this.repository = repository;
-    }
+    private final YoutubeValidator youtubeValidator;
 
     @Scheduled(cron = "0 0 */4 * * *")
     public void verificarVideosDisponiveis() {

@@ -4,17 +4,30 @@ import com.eitasutilities.cs2.entities.Utilitario;
 import com.eitasutilities.cs2.entities.enums.Dificuldade;
 import com.eitasutilities.cs2.entities.enums.Lado;
 import com.eitasutilities.cs2.entities.enums.Tipo;
-import com.eitasutilities.cs2.utils.YouTubeUtils;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
 public record UtilitarioDTO(
     UUID id,
+    @NotBlank
+    @Size(max = 20, message = "O campo deve possuir no máximo 20 caracteres.")
     String lado,
+    @NotBlank
+    @Size(max = 20, message = "O campo deve possuir no máximo 20 caracteres.")
     String mapa,
+    @NotBlank
+    @Size(max = 2083, message = "O campo deve possuir no máximo 20 caracteres.")
     String link,
+    @NotBlank
+    @Size(max = 20, message = "O campo deve possuir no máximo 20 caracteres.")
     String tipo,
+    @NotBlank
+    @Size(max = 100, message = "O campo deve possuir no máximo 20 caracteres.")
     String titulo,
+    @NotBlank
+    @Size(max = 20, message = "O campo deve possuir no máximo 20 caracteres.")
     String dificuldade
 ) {
     public Utilitario mapearParaUtilitario() {
